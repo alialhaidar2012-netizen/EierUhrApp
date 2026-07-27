@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Eier-Uhr</title>
+  <style>
+    .KQ{
+     width: 50px;
+     height: 50px;
+     overflow: hidden;
+     object-fit: cover;
+     clip-path: circle(50%);
+    }
+    .HRZ{
+      width: 300px;
+      height: 400px;
+      overflow: hidden;
+      object-fit: cover;
+    }
+    .background-body{
+      background-color: #262626;
+    }
+    .center{
+      display: flex;
+      justify-content: center;
+    }
+    .margin{
+      margin-top="100px";
+    }
+    .timer{
+      font-size: 60px;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+    }
+    #start{
+      width: 250px;
+      height: 75px;
+      margin-left: 450px;
+      font-size: 50px;
+      font-family: 'Roboto', sans-serif;
+      border: 1px solid black;
+      text-align: center;
+      color: black;
+     background-color: yellow; 
+    }
+  </style>
+</head>
+
+<body class = "background-body">
+  
+  <div>
+    <img src="bilder/menu.jpg" class="KQ">
+ </div>
+ 
+  <div class="center margin">
+    <img src="bilder/ei.jpg" class="HRZ">
+  </div>
+  
+  <div id="timer" class="center margin timer">
+    05:00
+  </div>
+  
+  <button id="start" class = "center margin">
+    start
+  </button>
+  
+  <script>
+  let alarm = new Audio('alarm.wav');
+  let timerStarted = false
+  const start = document.getElementById("start");
+  start.addEventListener('click', startTimer(), false);
+  
+  function startTimer() {
+    if(!timerStarted){
+    let startTime = new Date().getTime();
+    let fiveMinutes = 1000 *60*5;
+    let endTime = startTime+fiveMinutes;
+    
+    setInterval(function() {
+      let timeLeft = endTime - new Date().getTime();
+      
+      if(timeLeft>0){
+      let minutes = timeLeft/ (1000 * 60);
+      minutes = Math.floor(minutes);
+      let seconds = (timeLeft / 1000) % 60;
+      seconds = Math.round(seconds);
+      seconds = ('0'+ seconds).slice(-2)
+      let text= '0'+minutes+' : '+seconds;
+      timer.innerHTML = text;
+    }else{
+      timer.innerHTML = "00 : 00" ;
+      alarm.play();
+    }
+    },1000);
+    timerStarted = true;
+  }
+  }
+  </script>
+</body>
+</html>
