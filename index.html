@@ -71,7 +71,7 @@
   let alarm = new Audio('alarm.wav');
   let timerStarted = false
   const start = document.getElementById("start");
-  start.addEventListener('click', startTimer(), false);
+  start.addEventListener('click', startTimer, false);
   
   function startTimer() {
     if(!timerStarted){
